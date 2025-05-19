@@ -10,4 +10,23 @@ public class Post {
 	        this.user = user;
 	        this.content = content;
 	    }
+
+		public String getTitle() {
+			return title;
+		}
+
+		public String getUser() {
+			return user;
+		}
+
+		public String getContent() {
+			return content;
+		}
+
+		@Override
+		public String toString() {
+			return "Post [title=" + title + ", user=" + user + ", content=" + content + "]";
+		}
+
+		
 }

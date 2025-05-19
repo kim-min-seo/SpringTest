@@ -39,9 +39,9 @@ public class ResponseDataStructure {
 		
 		Movie = new HashMap<>(); 
 		Movie.put("rate", 19);
-		Movie.put("director", "윤종빈");
+		Movie.put("director", "김민서");
 		Movie.put("time", 133);
-		Movie.put("title", "범죄와의 전쟁 : 나쁜놈들 전성시대");
+		Movie.put("title", "동창회의 목적");
 		movieList.add(Movie);
 		
 		Movie = new HashMap<>(); 

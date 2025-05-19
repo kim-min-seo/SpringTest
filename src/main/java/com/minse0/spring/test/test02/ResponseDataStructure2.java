@@ -18,7 +18,7 @@ public class ResponseDataStructure2 {
 	public List<Post> getPosts(){
 		List<Post> posts = new ArrayList<>();
 		
-		 posts.add(new Post(
+				posts.add(new Post(
 		            "안녕하세요 가입인사 드립니다.",
 		            "hagulu",
 		            "안녕하세요. 가입했어요. 앞으로 잘 부탁 드립니다. 활동 열심히 하겠습니다."
@@ -33,7 +33,7 @@ public class ResponseDataStructure2 {
 		        posts.add(new Post(
 		            "오늘 데이트 한 이야기 해드릴게요.",
 		            "dulumary",
-		            "...."
+		            "독도쭈꾸미에서 만났죠 아마?..."
 		        ));
 		return posts;
 		
