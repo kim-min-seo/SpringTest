@@ -3,8 +3,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.minse0.spring.test.real_estate.repository.EstateRepository">
- 	<select id="selectEstate"
- 	resultType="com.minse0.spring.test.real_estate.domain.Estate">
+ 	<select id="selectEstate" parameterType="int"
+ 			resultType="com.minse0.spring.test.real_estate.domain.Estate">
  		SELECT
 	 		`id`
 	 		, `realtorId`
@@ -22,4 +22,85 @@
  		
     	  WHERE `id` = #{id}
  	</select>
+ 	
+ 	<select id="selectEstateByRentPrice" parameterType="int"
+ 			resultType="com.minse0.spring.test.real_estate.domain.Estate">
+		SELECT
+	 		`id`
+	 		, `realtorId`
+	 		, `address`
+	 		, `area`
+	 		, `type`
+	 		, `price`
+	 		, `rentPrice`
+	 		, `createdAt`
+	 		, `updatedAt`	
+ 		
+ 		FROM
+ 		
+ 			`real_estate`
+ 		WHERE
+ 			<![CDATA[ `rentPrice` < #{rentPrice} ]]>
+ 	
+ 	</select>
+ 	
+ 	<select id="selectEstateByAreaAndPrice" parameterType="map"
+ 			resultType="com.minse0.spring.test.real_estate.domain.Estate">
+ 		SELECT
+	 		`id`
+	 		, `realtorId`
+	 		, `address`
+	 		, `area`
+	 		, `type`
+	 		, `price`
+	 		, `rentPrice`
+	 		, `createdAt`
+	 		, `updatedAt`	
+ 		
+ 		FROM
+ 		
+ 			`real_estate`
+ 		WHERE
+ 			<![CDATA[
+ 			`area` >= #{area}
+ 			AND `price` <= #{price}	
+ 			]]>
+ 	</select>
+ 
+	<insert id="insertEstateByObject" parameterType="com.minse0.spring.test.real_estate.domain.Estate">
+    INSERT INTO real_estate (
+        realtorId
+        , address
+        , area
+        , type
+        , price
+        , rentPrice
+        
+    )
+    VALUES (
+        #{realtorId}
+        , #{address}
+        , #{area}
+        , #{type}
+        , #{price}
+        , #{rentPrice}
+    )
+</insert>
+	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  </mapper>
