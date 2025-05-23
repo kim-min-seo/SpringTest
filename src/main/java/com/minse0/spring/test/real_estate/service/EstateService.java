@@ -48,10 +48,54 @@ public class EstateService {
 		int count = estateRepository.insertEstateByObject(estate);
 		
 		return count;
-		
-		
 	}
+	public int addRealEstate(
+		int realtorId
+		, String address
+		, int area
+		, String type
+		, int price
+		, int rentPrice){
 		
+	int count =	estateRepository.insertRealEstate(realtorId, address, area, type, price, rentPrice);
+	
+	return count;
+	
+	}
+	// 전달 받은 id와 일치하는 매물 정보의 type과 price를 수정하는 기능
+	public int updateRealEstate(int id, String type, int price) {
+		
+		int count = estateRepository.updateRealEstate(id, type, price);
+		
+		return count;
+	}
+	
+	public int deleteRealEstate(int id){
+		
+		int count = estateRepository.deleteRealEstate(id);
+		
+		return count;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
   

@@ -24,6 +24,25 @@ public interface EstateRepository {
 			, @Param("type") String type
 			, @Param("price") int price
 			);
-		public int insertEstateByObject(Estate estate);	
+	public int insertEstateByObject(Estate estate);	
 	
+	public int  insertRealEstate(
+			@Param("realtorId")	int realtorID
+			, @Param("address")	 String address
+			, @Param("area") int area
+			,@Param("type") String type
+			,@Param("price") int price
+			,@Param("rentPrice") int rentPrice);
+			
+	public int updateRealEstate(
+			@Param("id")int id
+			,@Param("type") String type
+			,@Param("price") int price
+			);
+	
+	public int deleteRealEstate(
+			@Param("id") int id
+			);
+	
+		
 }

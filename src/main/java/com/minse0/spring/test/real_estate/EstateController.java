@@ -12,14 +12,14 @@ import com.minse0.spring.test.real_estate.domain.Estate;
 import com.minse0.spring.test.real_estate.service.EstateService;
 
 @Controller
-@RequestMapping("/mybatis/real-estate/select")
+@RequestMapping("/mybatis/real-estate")
 public class EstateController {
 	
 	@Autowired
 	private EstateService estateService;
 	
 	@ResponseBody
-	@RequestMapping("/1")
+	@RequestMapping("/select/1")
 	public Estate estate(@RequestParam("id") int id) {
 		
 		Estate estate = estateService.getEstate(id);
@@ -27,7 +27,7 @@ public class EstateController {
 		return estate;
 	}
 	@ResponseBody
-	@RequestMapping("/2")
+	@RequestMapping("/select/2")
 	public List<Estate> EstateByRentPrice(@RequestParam("rent")int rentPrice) {
 		
 		List<Estate> EstateList = estateService.getEstateByRentPrice(rentPrice);
@@ -36,7 +36,7 @@ public class EstateController {
 		
 	}
 	@ResponseBody
-	@RequestMapping("/3")
+	@RequestMapping("/select/3")
 	public List<Estate> EstateByAreaAndPrice(
 			@RequestParam("area")int area
 			,@RequestParam("price") int price) {
@@ -45,7 +45,7 @@ public class EstateController {
 		return EstateList;
 	}
 	@ResponseBody
-	@RequestMapping("/4")
+	@RequestMapping("/insert/1")
 	public String createEstate() {
 		
 		Estate estate = new Estate();
@@ -60,7 +60,35 @@ public class EstateController {
 		return "실행 결과 : " + count;
 	}
 	
+	@RequestMapping("/insert/2")
+	public String createRealEstate(@RequestParam("realtorId") int realtorId) {
 		
+//		address : 썅떼빌리버 오피스텔 814호
+//		area : 45
+//		type : 월세
+//		price : 100000
+//		rentPrice : 120
+	  int count =	estateService.addRealEstate(realtorId , "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120);
+	  
+	  return "실행 결과 : " + count;
+	}
+	  @ResponseBody
+	  @RequestMapping("/update")
+	  public String updateRealEstate() {
+		int count =  estateService.updateRealEstate(21, "전세", 70000);
+		
+		return "실행 결과 : " + count;
+		
+	  
+	}
+	  @ResponseBody
+	  @RequestMapping("/delete")
+	  public String deleteRealEstate(@RequestParam("id") int id){
+		
+		  int count = estateService.deleteRealEstate(id);
+		  
+		  return "실행 결과 : " + count;
+	}
 	
 	
 	
