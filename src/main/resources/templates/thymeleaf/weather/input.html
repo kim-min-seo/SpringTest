@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>날씨 입력</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/thymeleaf/style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <!-- 사이드바 -->
+  <aside class="main-menu">
+    <img src="https://www.cartvnews.com/news/photo/201811/285759_59562_1637.jpg" class="logo" alt="기상청 로고">
+    <h5>기상청</h5>
+    <a href="#">날씨</a>
+    <a href="#">날씨입력</a>
+    <a href="#">테마날씨</a>
+    <a href="#">관측 기록</a>
+  </aside>
+
+  <!-- 본문 -->
+  <main class="contents">
+    <h3>날씨 입력</h3>
+
+    <form action="/thymeleaf/weather/input" method="post">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="form-label">날짜</label>
+          <input type="date" name="date" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">날씨</label>
+          <select name="weather" class="form-select">
+            <option>맑음</option>
+            <option>비</option>
+            <option>흐림</option>
+            <option>눈</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">미세먼지</label>
+          <select name="dust" class="form-select">
+            <option>좋음</option>
+            <option>보통</option>
+            <option>나쁨</option>
+            <option>매우 나쁨</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <label class="form-label">기온</label>
+          <div class="input-group">
+            <input type="text" name="temperature" class="form-control">
+            <span class="input-group-text">℃</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">강수량</label>
+          <div class="input-group">
+            <input type="text" name="precipitation" class="form-control">
+            <span class="input-group-text">mm</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">풍속</label>
+          <div class="input-group">
+            <input type="text" name="windSpeed" class="form-control">
+            <span class="input-group-text">km/h</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-end mt-4">
+        <button type="submit" class="btn btn-success">저장</button>
+      </div>
+    </form>
+
+    <!-- 푸터 -->
+    <footer class="footer mt-5">
+      <p>(07062) 서울시 동작구 여의대방로16길 61<br>
+        Copyrightⓒ2020 KMA. All Rights RESERVED.</p>
+    </footer>
+  </main>
+</div>
+
+</body>
+</html>

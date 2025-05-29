@@ -1,6 +1,6 @@
 package com.minse0.spring.test.thymeleaf;
 
-import java.lang.reflect.Member;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.minse0.spring.test.thymeleaf.domain.Member;
+
+
 
 @Controller
 @RequestMapping("/thymeleaf")
@@ -138,4 +142,5 @@ public class ThymeleafController {
 			model.addAttribute("members", members);
 			return "thymeleaf/test04";
 		}
-}
+		
+	}
