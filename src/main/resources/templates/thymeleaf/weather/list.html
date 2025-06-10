@@ -34,13 +34,27 @@
       </thead>
       <tbody>
         <tr th:each="weather : ${weatherList}">
-          <td th:text="${weather.date}">2015년 7월 1일</td>
-          <td><img src="http://marondal.com/material/images/dulumary/web/jstl/rainy.jpg" class="weather-icon" alt="비"></td>
-          <td th:text="${weatther.temperature">21.9℃</td>
-          <td th:text="${weather.precipitation">83.5mm</td>
-          <td th:text="${weather.microDust">보통</td>
-          <td th:text="${weather.windSpeed">2.9km/h</td>
-        </tr>
+  <td th:text="${weather.date}">2015년 7월 1일</td>
+
+  <td>
+    <img th:src="@{
+      ${weather.weather == '맑음'} ? 
+        'http://marondal.com/material/images/dulumary/web/jstl/sunny.jpg' : 
+      (${weather.weather == '흐림'} ? 
+        'http://marondal.com/material/images/dulumary/web/jstl/cloudy.jpg' : 
+      (${weather.weather == '눈'} ? 
+        'http://marondal.com/material/images/dulumary/web/jstl/snowy.jpg' : 
+        'http://marondal.com/material/images/dulumary/web/jstl/rainy.jpg')) 
+    }"
+    class="weather-icon" th:alt="${weather.weather}" />
+  </td>
+
+  <td th:text="${weather.temperature}">21.9℃</td>
+  <td th:text="${weather.precipitation}">83.5mm</td>
+  <td th:text="${weather.microDust}">보통</td>
+  <td th:text="${weather.windSpeed}">2.9km/h</td>
+</tr>
+        
         <!-- 추가 행 가능 -->
       </tbody>
     </table>

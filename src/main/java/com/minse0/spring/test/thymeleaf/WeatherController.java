@@ -27,7 +27,7 @@ public class WeatherController {
 
     @PostMapping("/input")
     public String postInput(Weather weather) {
-        
+        weatherService.addWeather(weather);
     	return "redirect:/thymeleaf/weather/list";
     }
 

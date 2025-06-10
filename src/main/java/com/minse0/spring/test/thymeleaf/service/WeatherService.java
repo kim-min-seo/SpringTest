@@ -19,4 +19,8 @@ public class WeatherService {
 		
 		return weatherhistotry;
 	}
+	public void addWeather(Weather weather) {
+	    weatherRepository.insertWeather(weather);
+	}
+
 }

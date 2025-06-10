@@ -4,8 +4,19 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.minse0.spring.test.thymeleaf.repository.WeatherRepository">
-	<select id="selectWeatherHistory"
-	 resultType="com.minse0.spring.test.thymeleaf.domain.weather">
-	</select> 
- 	
- </mapper>
+
+  <select id="selectWeatherHistory" resultType="com.minse0.spring.test.thymeleaf.domain.Weather">
+    SELECT id, date, weather, temperature, precipitation, micro_dust AS microDust, wind_speed AS windSpeed, created_at AS createdAt, updated_at AS updatedAt
+    FROM weatherhistory
+    ORDER BY date DESC
+  </select>
+
+  <insert id="insertWeather" parameterType="com.minse0.spring.test.thymeleaf.domain.Weather">
+    INSERT INTO weatherhistory
+    (date, weather, temperature, precipitation, micro_dust, wind_speed, created_at, updated_at)
+    VALUES
+    (#{date}, #{weather}, #{temperature}, #{precipitation}, #{microDust}, #{windSpeed}, NOW(), NOW())
+  </insert>
+
+</mapper>
+ 
