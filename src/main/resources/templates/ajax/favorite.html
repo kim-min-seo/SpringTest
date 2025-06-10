@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>즐겨찾기 등록</title>
+    <style>
+        body { font-family: Arial; padding: 30px; }
+        input, button {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            width: 300px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            margin-top: 30px;
+            border-collapse: collapse;
+            width: 600px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>즐겨 찾기 추가하기</h2>
+    <input type="text" id="name" placeholder="제목 입력">
+    <input type="text" id="url" placeholder="주소 입력 (http:// 또는 https://)">
+    <button onclick="addFavorite()">추가</button>
+
+    <h2>즐겨 찾기 목록</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>이름</th>
+                <th>주소</th>
+            </tr>
+        </thead>
+        <tbody id="favorite-list">
+            <!-- JavaScript로 목록 렌더링 -->
+        </tbody>
+    </table>
+
+    <script>
+        function addFavorite() {
+            const name = document.getElementById("name").value.trim();
+            const url = document.getElementById("url").value.trim();
+
+            if (!name || !url) {
+                alert("제목과 주소를 모두 입력하세요.");
+                return;
+            }
+
+            if (!/^https?:\/\//.test(url)) {
+                alert("주소는 http:// 또는 https:// 로 시작해야 합니다.");
+                return;
+            }
+
+            fetch("/ajax/favorite/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, url })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.result === "success") {
+                    document.getElementById("name").value = "";
+                    document.getElementById("url").value = "";
+                    loadFavorites();
+                } else {
+                    alert("등록 실패");
+                }
+            })
+            .catch(err => {
+                console.error("오류:", err);
+                alert("서버 오류 발생");
+            });
+        }
+
+        function loadFavorites() {
+            fetch("/ajax/favorite/list")
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById("favorite-list");
+                tbody.innerHTML = "";
+                data.forEach((fav, index) => {
+                    const row = `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${fav.name}</td>
+                            <td><a href="${fav.url}" target="_blank">${fav.url}</a></td>
+                        </tr>`;
+                    tbody.insertAdjacentHTML("beforeend", row);
+                });
+            });
+        }
+
+        window.onload = loadFavorites;
+    </script>
+
+</body>
+</html>
