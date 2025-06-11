@@ -37,12 +37,17 @@
     		
     </insert>
     
-    <select id="countByUrl" resultType="int">
+    <select id="countByUrl" parameterType="string" resultType="int">
 	  SELECT COUNT(1)
 	  FROM `favorite`
 	  WHERE `url` = #{url}
 	</select>
     
-
+	<delete id="deleteFavorite" parameterType="int">
+		DELETE FROM
+			`favorite`
+		WHERE
+			`id` = #{id}	
+	</delete>
 </mapper>
  

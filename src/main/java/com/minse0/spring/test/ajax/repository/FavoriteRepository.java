@@ -15,6 +15,8 @@ public interface FavoriteRepository {
 	public int insertFavorite(
 			@Param("name") String name
 			, @Param("url") String url);
+	
 	public int countByUrl(@Param("url") String url);  // 추가
-
+	
+	public int deleteFavorite(@Param("id") int id);
 }

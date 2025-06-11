@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.minse0.spring.test.ajax.repository.ReservationRepository">
+ 	
+ 	<select id="selectReservationList" resultType="com.minse0.spring.test.ajax.domain.Reservation">
+ 		SELECT 
+ 			`id`
+ 			, `name`
+ 			, `date`
+ 			, `day`
+ 			, `headcount`
+ 			, `phoneNumber`
+ 			, `state`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`booking`	
+ 	</select>
+ 	
+ 	<delete id="deleteReservation" parameterType="int">
+		DELETE FROM
+			`booking`
+		WHERE
+			`id` = #{id}	
+	</delete>
+ </mapper>

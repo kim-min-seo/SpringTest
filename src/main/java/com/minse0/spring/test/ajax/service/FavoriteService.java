@@ -30,5 +30,11 @@ public class FavoriteService  {
   public boolean isUsableUrl(String url) {
 	    return favoriteRepository.countByUrl(url) == 0;
 	}
-
+  
+  public int deleteFavorite(int id){
+	  
+	  int count = favoriteRepository.deleteFavorite(id);
+	  
+	  return count;
+  }
 }
