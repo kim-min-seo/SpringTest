@@ -57,6 +57,16 @@ public class FavoriteController {
 	 public String inputFavorite() {
 	     return "ajax/input";
 	 }
+	 
+	 @ResponseBody
+	 @GetMapping("/duplicate")
+	 public Map<String, Object> checkDuplicate(@RequestParam("url") String url) {
+	     boolean usable = favoriteService.isUsableUrl(url);
+	     Map<String, Object> result = new HashMap<>();
+	     result.put("usable", usable);
+	     result.put("message", usable ? "저장 가능한 url 입니다." : "중복된 url 입니다.");
+	     return result;
+	 }
 
 	 
 	 

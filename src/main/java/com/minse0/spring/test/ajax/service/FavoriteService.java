@@ -27,4 +27,8 @@ public class FavoriteService  {
 	 
 	 return count;
   }
+  public boolean isUsableUrl(String url) {
+	    return favoriteRepository.countByUrl(url) == 0;
+	}
+
 }

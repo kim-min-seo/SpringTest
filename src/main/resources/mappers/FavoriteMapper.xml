@@ -36,6 +36,13 @@
     	
     		
     </insert>
+    
+    <select id="countByUrl" resultType="int">
+	  SELECT COUNT(1)
+	  FROM `favorite`
+	  WHERE `url` = #{url}
+	</select>
+    
 
 </mapper>
  
