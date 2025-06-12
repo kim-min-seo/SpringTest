@@ -1,5 +1,6 @@
 package com.minse0.spring.test.ajax.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,14 @@ public class ReservationService {
 	
 	 public int createReservation(
 	            String name,
-	            String date,
+	            LocalDate date,
 	            int day,
 	            int headcount,
 	            String phoneNumber,
 	            String state
 	    ) {
 	        int count = reservationRepository.insertReservation(
-	            name, date, day, headcount, phoneNumber, state
+	            name, date, day, headcount, phoneNumber, "대기중"
 	        );
 	        return count;
 	    }

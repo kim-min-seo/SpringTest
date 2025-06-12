@@ -1,8 +1,10 @@
 package com.minse0.spring.test.ajax;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +38,7 @@ public class ReservationController {
 	@PostMapping("/create")
 	public Map<String, String> createReservation(
 			@RequestParam("name") String name
-			, @RequestParam("date") String date
+			, @DateTimeFormat(pattern="yyyy년 M월 d일") @RequestParam("date") LocalDate date
 			, @RequestParam("day") int day
 			, @RequestParam("headcount") int headcount
 			, @RequestParam("phoneNumber") String phoneNumber
@@ -65,8 +67,8 @@ public class ReservationController {
 	 @ResponseBody
 	    @GetMapping("/query")
 	    public Map<String, Object> queryReservation(
-	        @RequestParam String name,
-	        @RequestParam String phoneNumber
+	        @RequestParam("name") String name,
+	        @RequestParam("phoneNumber") String phoneNumber
 	    ) {
 	        Reservation r = reservationService.getByNameAndPhone(name, phoneNumber);
 	        if (r != null) {

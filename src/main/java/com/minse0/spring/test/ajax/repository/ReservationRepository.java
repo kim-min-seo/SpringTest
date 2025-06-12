@@ -1,5 +1,6 @@
 package com.minse0.spring.test.ajax.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +14,7 @@ public interface ReservationRepository {
 	
 	public int insertReservation(
 			@Param("name") String name
-			, @Param("date") String date
+			, @Param("date") LocalDate date
 			, @Param("day") int day
 			, @Param("headcount") int headcount
 			, @Param("phoneNumber") String phoneNumber

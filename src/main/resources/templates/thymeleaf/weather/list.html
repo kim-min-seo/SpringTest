@@ -3,68 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <title>과거 날씨</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/thymeleaf/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"/>
+
+  <style>
+    /* 전체 래퍼: 좌우 플렉스 배치 */
+    #wrap {
+      display: flex;
+      min-height: 100vh;
+    }
+    /* 사이드 메뉴 */
+    .main-menu {
+      width: 200px;
+      background-color: #4e73df;
+      padding-top: 1rem;
+    }
+    .main-menu .logo {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+    .main-menu a {
+      display: block;
+      color: #fff;
+      font-weight: bold;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+    }
+    .main-menu a:hover {
+      background-color: #2e59d9;
+    }
+    /* 본문 컨텐츠 */
+    .contents {
+      flex: 1;
+      padding: 2rem;
+    }
+    .weather-icon {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
 </head>
 <body>
+  <div id="wrap">
 
-<div id="wrap">
+    <!-- 사이드 네비게이션 -->
+    <nav class="main-menu">
+      <img src="https://www.cartvnews.com/news/photo/201811/285759_59562_1637.jpg"
+           class="logo" alt="기상청 로고"/>
 
-  <div class="main-menu">
-    <img src="https://www.cartvnews.com/news/photo/201811/285759_59562_1637.jpg" class="logo" alt="기상청 로고">
-   
-    <a href="#">날씨</a>
-    <a href="#">날씨입력</a>
-    <a href="#">테마날씨</a>
-    <a href="#">관측 기록</a>
+      <a href="#">날씨</a>
+      <a href="#">날씨입력</a>
+      <a href="#">테마날씨</a>
+      <a href="#">관측 기록</a>
+    </nav>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="contents">
+      <h3>과거 날씨</h3>
+
+      <table class="table table-bordered text-center mt-4">
+        <thead class="table-light">
+          <tr>
+            <th>날짜</th>
+            <th>날씨</th>
+            <th>기온</th>
+            <th>강수량</th>
+            <th>미세먼지</th>
+            <th>풍속</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="weather : ${weatherList}">
+            <!-- 날짜 -->
+            <td th:text="${weather.date}">2025-06-12 00:00:00</td>
+
+            <!-- 아이콘: switch/if 로 각 상태별 HTTPS URL 사용 -->
+            <td th:switch="${weather.weather}">
+			  <img th:case="'맑음'"
+			       th:src="@{//marondal.com/material/images/dulumary/web/jstl/sunny.jpg}"
+			       alt="맑음" class="weather-icon"/>
+			
+			  <img th:case="'구름조금'"
+			       th:src="@{//marondal.com/material/images/dulumary/web/jstl/partlyCloudy.jpg}"
+			       alt="구름조금" class="weather-icon"/>
+			
+			  <img th:case="'흐림'"
+			       th:src="@{//marondal.com/material/images/dulumary/web/jstl/cloudy.jpg}"
+			       alt="흐림" class="weather-icon"/>
+			
+			  <img th:case="'비'"
+			       th:src="@{//marondal.com/material/images/dulumary/web/jstl/rainy.jpg}"
+			       alt="비" class="weather-icon"/>
+			
+			  <!-- 어떤 경우에도 한 번쯤 태그가 출력되는지 확인용 fallback -->
+			  <span th:case="*"
+			        th:text="'[' + ${weather.weather} + ']'">[알수없음]</span>
+			</td>
+            
+
+            <!-- 나머지 컬럼 -->
+            <td th:text="${weather.temperature}">21.9℃</td>
+            <td th:text="${weather.precipitation}">83.5mm</td>
+            <td th:text="${weather.microDust}">보통</td>
+            <td th:text="${weather.windSpeed}">2.9km/h</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <footer class="footer mt-5">
+        <p>
+          (07062) 서울시 동작구 여의대방로16길 61<br/>
+          Copyrightⓒ2020 KMA. All Rights RESERVED.
+        </p>
+      </footer>
+    </main>
+
   </div>
-
-  <main class="contents">
-    <h3>과거 날씨</h3>
-    <table class="table table-bordered text-center mt-4">
-      <thead class="table-light">
-        <tr>
-          <th>날짜</th>
-          <th>날씨</th>
-          <th>기온</th>
-          <th>강수량</th>
-          <th>미세먼지</th>
-          <th>풍속</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="weather : ${weatherList}">
-  <td th:text="${weather.date}">2015년 7월 1일</td>
-
-  <td>
-    <img th:src="@{
-      ${weather.weather == '맑음'} ? 
-        'http://marondal.com/material/images/dulumary/web/jstl/sunny.jpg' : 
-      (${weather.weather == '흐림'} ? 
-        'http://marondal.com/material/images/dulumary/web/jstl/cloudy.jpg' : 
-      (${weather.weather == '눈'} ? 
-        'http://marondal.com/material/images/dulumary/web/jstl/snowy.jpg' : 
-        'http://marondal.com/material/images/dulumary/web/jstl/rainy.jpg')) 
-    }"
-    class="weather-icon" th:alt="${weather.weather}" />
-  </td>
-
-  <td th:text="${weather.temperature}">21.9℃</td>
-  <td th:text="${weather.precipitation}">83.5mm</td>
-  <td th:text="${weather.microDust}">보통</td>
-  <td th:text="${weather.windSpeed}">2.9km/h</td>
-</tr>
-        
-        <!-- 추가 행 가능 -->
-      </tbody>
-    </table>
-
-    <footer class="footer">
-      <p>(07062) 서울시 동작구 여의대방로16길 61<br>Copyrightⓒ2020 KMA. All Rights RESERVED.</p>
-    </footer>
-  </main>
-
-</div>
-
 </body>
 </html>

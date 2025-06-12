@@ -41,7 +41,7 @@
  			, #{day}
  			, #{headcount}
  			, #{phoneNumber}
- 			, #{state}
+ 			, '대기중'
  			, NOW()
  			, NOW()
  		)

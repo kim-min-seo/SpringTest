@@ -130,9 +130,9 @@
         $.ajax({
           type: "get",
           url: "/ajax/reservation/delete",
-          data: { id: id },
-          success(res){
-            if(res.result === "success"){
+          data: { "id" : id },
+          success(response){
+            if(response.result === "success"){
               location.reload();
             } else {
               alert("삭제에 실패했습니다.");

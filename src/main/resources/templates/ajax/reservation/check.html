@@ -176,9 +176,9 @@
           type: "get",
           url: "/ajax/reservation/query",
           data: { name, phoneNumber: phone },
-          success(res){
-            if(res.result === "success"){
-              const r = res.reservation;
+          success(response){
+            if(response.result === "success"){
+              const r = response.reservation;
               alert(
                 `이름: ${r.name}\n`+
                 `날짜: ${r.date}\n`+

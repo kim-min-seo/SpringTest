@@ -154,8 +154,8 @@
             phoneNumber: phone,
             state: state
           },
-          success: function(res){
-            if (res.result === "success") {
+          success: function(response){
+            if (response.result === "success") {
               alert("예약이 완료되었습니다.");
               location.href = "/ajax/reservation/list";
             } else {
