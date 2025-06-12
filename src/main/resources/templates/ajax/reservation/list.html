@@ -1,83 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>예약 목록 리스트</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
+  <meta charset="UTF-8">
+  <title>예약 목록 보기</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  >
   <style>
+    
+    #wrap {
+      width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    
+    #content {
+      width: 1200px;
+      margin: 0 auto;
+    }
+    header h2 {
+	  font-size: 3rem;  
+	  margin: 0;
+	}
+    
+    
     .nav-bar {
       background-color: peru;
     }
-    .nav-bar a {
+    .nav-bar .nav-link {
       color: white;
       font-weight: bold;
     }
-    .nav-bar a:hover {
+    .nav-bar .nav-link:hover {
       text-decoration: underline;
     }
+    
+    .table th,
+    .table td {
+      font-weight: bold;
+    }
+   
     footer {
-      font-size: 0.9rem;
+      font-size: 0.75rem;
+      text-align: left;
       color: #555;
-      margin-top: 80px;
-      padding: 20px 0;
+      margin-top: 40px;
+      padding-top: 10px;
       border-top: 1px solid #ccc;
-      text-align: center;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-	
-	  <div class="text-center my-4">
-	    <h2>통나무 펜션</h2>
-	  </div>
-	
-	  
-	  <nav class="nav justify-content-center nav-bar py-2">
-	    <a class="nav-link" href="#">펜션소개</a>
-	    <a class="nav-link" href="#">객실보기</a>
-	    <a class="nav-link" href="#">예약하기</a>
-	    <a class="nav-link" href="#">예약목록</a>
-	  </nav>
+  <div id="wrap">
 
+    
+    <header class="text-center my-4">
+      <h2>통나무 펜션</h2>
+    </header>
 
-	<h2 class="text-center">예약 목록 보기</h2>
-	<table class="table text-center" >
-		<thead>
-			<tr>
-				<th>이름</th>
-				<th>예약날짜</th>
-				<th>숙박일수</th>
-				<th>숙박인원</th>
-				<th>전화번호</th>
-				<th>예약상태</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><button type="button" class="btn btn-danger btn-sm delete-btn">삭제</button> </td>
-			</tr>
-		</tbody>
-	</table>
-	
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-	        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-	        crossorigin="anonymous"></script>
-	        
-	<script>
-	
-	</script>    
-	
-	<footer>
-	    제주특별자치도 제주시 애월읍 <br>
-	    사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표: 김통목<br>
-	    Copyright 2025 tongnamu All right reserved
-    </footer>    
+    
+    <nav class="nav nav-fill nav-bar py-2 mb-4">
+      <a class="nav-link" href="#">펜션소개</a>
+      <a class="nav-link" href="#">객실보기</a>
+      <a class="nav-link" href="#">예약하기</a>
+      <a class="nav-link active" href="#">예약목록</a>
+    </nav>
+
+   
+    <div id="content">
+      <h2 class="text-center mb-4">예약 목록 보기</h2>
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>예약날짜</th>
+            <th>숙박일수</th>
+            <th>숙박인원</th>
+            <th>전화번호</th>
+            <th>예약상태</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="res : ${reservationList}">
+            <td th:text="${res.name}"></td>
+            <!-- 날짜 문자열의 앞 10자리(YYYY-MM-DD)만 잘라서, 년·월·일로 포맷 -->
+           <td th:text="|${res.date.substring(0,4)}년 ${res.date.substring(5,7).replaceFirst('^0','')}월 ${res.date.substring(8,10).replaceFirst('^0','')}일|">
+        예약날짜
+      </td>
+            <td th:text="${res.day}"></td>
+            <td th:text="${res.headcount}"></td>
+            <td th:text="${res.phoneNumber}"></td>
+            <td th:text="${res.state}"
+                th:classappend="${res.state=='확정'} ? 'text-success' : 'text-info'">
+            </td>
+            <td>
+              <button 
+                type="button" 
+                class="btn btn-danger btn-sm delete-btn" 
+                th:data-id="${res.id}">
+                삭제
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+    <footer>
+      제주특별자치도 제주시 애월읍<br>
+      사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표: 김통목<br>
+      Copyright 2025 tongnamu All right reserved
+    </footer>
+  </div>
+
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $(function(){
+      $(".delete-btn").click(function(){
+        let id = $(this).data("id");
+        if(!confirm("정말 삭제하시겠습니까?")) return;
+        $.ajax({
+          type: "get",
+          url: "/ajax/reservation/delete",
+          data: { id: id },
+          success(res){
+            if(res.result === "success"){
+              location.reload();
+            } else {
+              alert("삭제에 실패했습니다.");
+            }
+          },
+          error(){
+            alert("서버 오류로 삭제에 실패했습니다.");
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

@@ -11,7 +11,7 @@ import com.minse0.spring.test.ajax.domain.Reservation;
 public interface ReservationRepository {
 	public List<Reservation> selectReservationList();
 	
-	public int insertResrvation(
+	public int insertReservation(
 			@Param("name") String name
 			, @Param("date") String date
 			, @Param("day") int day
@@ -23,4 +23,8 @@ public interface ReservationRepository {
 	
 	public int deleteReservation(@Param("id") int id);
 	
+	public Reservation selectReservationByNameAndPhone(
+	        @Param("name")        String name,
+	        @Param("phoneNumber") String phoneNumber
+	    );
 }

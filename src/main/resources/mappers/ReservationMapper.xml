@@ -20,10 +20,58 @@
  			`booking`	
  	</select>
  	
+ 	<insert id="insertReservation" parameterType="map">
+ 		INSERT INTO
+ 			`booking`
+ 		(
+ 			`name`
+ 			, `date`
+ 			, `day`
+ 			, `headcount`
+ 			, `phoneNumber`
+ 			, `state`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 			
+ 		)	
+ 		VALUES
+ 		(
+ 			#{name}
+ 			, #{date}
+ 			, #{day}
+ 			, #{headcount}
+ 			, #{phoneNumber}
+ 			, #{state}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
  	<delete id="deleteReservation" parameterType="int">
 		DELETE FROM
 			`booking`
 		WHERE
 			`id` = #{id}	
 	</delete>
+	
+	<select id="selectReservationByNameAndPhone"
+ 			resultType="com.minse0.spring.test.ajax.domain.Reservation"
+ 			parameterType="map">
+ 		SELECT
+ 			`id`
+ 			, `name`
+ 			, `date`
+ 			, `day`
+ 			, `headcount`
+ 			, `phoneNumber`
+ 			, `state`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`booking`
+ 		WHERE
+ 			`name` = #{name}
+ 			AND `phoneNumber` = #{phoneNumber}
+ 		LIMIT 1
+ 	</select>
  </mapper>

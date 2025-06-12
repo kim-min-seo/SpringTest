@@ -1,73 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>예약하기</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
+  <meta charset="UTF-8">
+  <title>예약하기</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
+    
+    #wrap {
+      width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    
+    #content {
+      width: 600px;
+      margin: 0 auto;
+    }
+    
     .nav-bar {
       background-color: peru;
+     
     }
-    .nav-bar a {
+    .nav-bar .nav-link {
       color: white;
       font-weight: bold;
     }
-    .nav-bar a:hover {
+    .nav-bar .nav-link:hover {
       text-decoration: underline;
     }
+    
     footer {
-      font-size: 0.9rem;
+      font-size: 0.75rem;
+      text-align: left;
       color: #555;
-      margin-top: 80px;
-      padding: 20px 0;
+      margin-top: 40px;
+      padding-top: 10px;
       border-top: 1px solid #ccc;
-      text-align: center;
+    }
+    
+    #reserveBtn {
+      width: 100%;
     }
   </style>
-  
 </head>
 <body>
-	
-	
-	  <div class="text-center my-4">
-	    <h2>통나무 펜션</h2>
-	  </div>
-	
-	  
-	  <nav class="nav justify-content-center nav-bar py-2">
-	    <a class="nav-link" href="#">펜션소개</a>
-	    <a class="nav-link" href="#">객실보기</a>
-	    <a class="nav-link" href="#">예약하기</a>
-	    <a class="nav-link" href="#">예약목록</a>
-	  </nav>
-	
-	<div class="container">
-		<h2 class="text-center">예약 하기</h2>
-		
-		<label class="mt-2">이름</label>
-		<input type="text" class="form-control">
-		
-		<label class="mt-2">예약날짜</label>
-		<input type="text" class="form-control">
-		
-		<label class="mt-2">숙박일수</label>
-		<input type="text" class="form-control">
-		
-		<label class="mt-2">숙박인원</label>
-		<input type="text" class="form-control">
-		
-		<label class="mt-2">전화번호</label>
-		<input type="text" class="form-control">
-		
-		<button type="button" class="btn btn-warning">예약하기</button>
-		
-	</div>
-	
-	<footer>
-	    제주특별자치도 제주시 애월읍 <br>
-	    사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표: 김통목<br>
-	    Copyright 2025 tongnamu All right reserved
-  	</footer>
+  <div id="wrap">
+
+    
+    <header class="text-center my-4">
+      <h2>통나무 펜션</h2>
+    </header>
+
+    
+    <nav class="nav nav-fill nav-bar py-2 mb-4">
+      <a class="nav-link" href="#">펜션소개</a>
+      <a class="nav-link" href="#">객실보기</a>
+      <a class="nav-link active" href="#">예약하기</a>
+      <a class="nav-link" href="#">예약목록</a>
+    </nav>
+
+    
+    <div id="content">
+      <h2 class="text-center mb-4">예약 하기</h2>
+      
+      
+      <div class="mb-3">
+        <label for="nameInput" class="form-label">이름</label>
+        <input type="text" id="nameInput" class="form-control">
+      </div>
+
+      
+      <div class="mb-3">
+        <label for="dateInput" class="form-label">예약날짜</label>
+        <input type="text" id="dateInput" class="form-control" >
+      </div>
+
+      
+      <div class="mb-3">
+        <label for="dayInput" class="form-label">숙박일수</label>
+        <input type="number" id="dayInput" class="form-control" min="1">
+      </div>
+
+      
+      <div class="mb-3">
+        <label for="headcountInput" class="form-label">숙박인원</label>
+        <input type="number" id="headcountInput" class="form-control" min="1">
+      </div>
+
+      
+      <div class="mb-3">
+        <label for="phoneInput" class="form-label">전화번호</label>
+        <input type="tel" id="phoneInput" class="form-control" >
+      </div>
+
+      
+      <input type="hidden" id="stateInput" value="대기중">
+
+      
+      <div class="d-grid">
+        <button type="button" id="reserveBtn" class="btn btn-warning">예약하기</button>
+      </div>
+    </div>
+
+    
+    <footer>
+      제주특별자치도 제주시 애월읍<br>
+      사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표: 김통목<br>
+      Copyright 2025 tongnamu All right reserved
+    </footer>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+  <script>
+    $(function(){
+      $("#reserveBtn").click(function(){
+        let name      = $("#nameInput").val().trim();
+        let date      = $("#dateInput").val().trim();
+        let day       = $("#dayInput").val();
+        let headcount = $("#headcountInput").val();
+        let phone     = $("#phoneInput").val().trim();
+        let state     = $("#stateInput").val();
+
+        // 기본 유효성 검사
+        if (!name) {
+          return alert("이름을 입력하세요");
+        }
+        if (!date) {
+          return alert("날짜를 입력하세요 (YYYY-MM-DD)");
+        }
+        if (!day || day < 1) {
+          return alert("숙박일수를 1일 이상 입력하세요");
+        }
+        if (!headcount || headcount < 1) {
+          return alert("인원을 1명 이상 입력하세요");
+        }
+        if (!/^010-\d{4}-\d{4}$/.test(phone)) {
+          return alert("전화번호를 010-1234-5678 형식으로 입력하세요");
+        }
+
+        // AJAX 예약 등록
+        $.ajax({
+          type: "post",
+          url: "/ajax/reservation/create",
+          data: {
+            name: name,
+            date: date,
+            day: day,
+            headcount: headcount,
+            phoneNumber: phone,
+            state: state
+          },
+          success: function(res){
+            if (res.result === "success") {
+              alert("예약이 완료되었습니다.");
+              location.href = "/ajax/reservation/list";
+            } else {
+              alert("예약에 실패했습니다.");
+            }
+          },
+          error: function(){
+            alert("서버 오류로 예약에 실패했습니다.");
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
