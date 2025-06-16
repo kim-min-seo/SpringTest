@@ -34,10 +34,8 @@ public class Company {
 	private int headcount;
 	
 	@CreationTimestamp
-	@Column(name="createdAt")
 	private LocalDateTime createdAt;
 	
 	@UpdateTimestamp
-	@Column(name="updatedAt")
 	private LocalDateTime updatedAt;
 }

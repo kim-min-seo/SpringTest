@@ -1,6 +1,5 @@
 package com.minse0.spring.test.jpa;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,30 +27,32 @@ public class CompanyController {
 	@ResponseBody
 	@GetMapping("/create")
 	public List<Company> createCompanies() {
-        // 1. builder 패턴으로 회사 객체 생성
-        Company company1 = Company.builder()
-                .name("넥슨")
-                .business("컨텐츠 게임")
-                .scale("대기업")
-                .headcount(3585)
-                .build();
+      
+		
+		 Company company1 = companyService.addCompany("넥슨", "컨텐츠 게임", "대기업", 3585);
+	     Company company2 = companyService.addCompany("버블팡", "여신 금융업", "대기업", 6934);
 
-        Company company2 = Company.builder()
-                .name("버블팡")
-                .business("여신 금융업")
-                .scale("대기업")
-                .headcount(6934)
-                .build();
-
-        // 2. DB에 저장
-        companyRepository.save(company1);
-        companyRepository.save(company2);
-
-        // 3. JSON 형식으로 반환 (2개 회사 정보 리스트)
-        return Arrays.asList(company1, company2);
-       }
-	    
-	   
+	     return Arrays.asList(company1, company2);
+        
+	   }
+	
+	@ResponseBody
+	@GetMapping("/update")
+	public Company updateCompany() {
+		
+		Company company = companyService.updateCompany(12,"중소기업",34);
+		
+		return company;
+	  }
+	
+	@ResponseBody
+	@GetMapping("/delete")
+	public String deleteCompany() {
+		
+		companyService.deleteCompany(12);
+		
+		return "수행 완료";
+		}
 	}
 	
 	
